@@ -8,7 +8,7 @@ const url = "mongodb://localhost:27017/shipdata";
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 app.get('/', function (req,res){
-	res.render('index2.jade');
+	res.render('index.jade');
 });
 
 app.post('/quicksearch', urlencodedParser, function (req,res){

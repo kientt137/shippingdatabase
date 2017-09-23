@@ -14,39 +14,38 @@ html(lang='en')
                         form(action='')
                             p    Search by IMO
                                 text    &nbsp;&nbsp;&nbsp;
-                                input(type = 'text' onkeyup='quickSearch(this.value)')
+                                input#search( type = 'text')
                                 text    &nbsp;
-                                input(type = 'checkbox' name = 'checked' value = 'true')
+                                input#check(type = 'checkbox' value = 'true')
                                 text    &nbsp;Exact Search
-                                input(type ='submit' value= 'Submit')
                         h4#result
     script.
-        function quickSearch(str) {
-            var xhttp;
-            if (str === '') {
-                document.getElementById('result').innerHTML = '<h1>Try again!</h1>';
-            }
-            else {
-                xhttp = new XMLHttpRequest();
-                xhttp.onreadystatechange = function () {
-                    if (this.readyState === 4 && this.status === 200 && this !== null) {
-                        let code ='';
-                        let obj = JSON.parse(this.responseText);
-                        for (let i = 0; i < obj.length; i++){
-                            code = code + '<li>Ship IMO: ' + obj[i].IMO + ' - Ship Name: ' + obj[i].Name +
-                                '<form action=\"/ship/view-detail\" method=\"post\">' +
-                                '<input type = \"hidden\" value= \"'+obj[i].IMO+'\" name = \"IMO\">' +
-                                '<input type = \"hidden\" value= \"'+ obj[i].Name +'\" name = \"Name\">' +
-                                '<input type =\"submit\" value= \"View detail >>\">'+
-                                '</form></li><hr>';
+         $(document).ready(function () {
+            $('#search').keyup(function abc() {
+                let content = $('#search').val();
+                var checked = false;
+                if($('#check').is(':checked')) checked = true;
+                $.post('quicksearch', 'imo='+content +'&checked='+checked , function (data, status) {
+                    let code = '';
+                    let obj = data;
+                    for (let i = 0; i < obj.length; i++) {
+                        code = code + '<hr><li>Ship IMO: ' + obj[i].IMO + ' - Ship Name: ' + obj[i].Name +
+                            '<form action=\"/ship/view-detail\" method=\"post\">' +
+                            '<input type = \"hidden\" value= \"' + obj[i].IMO + '\" name = \"IMO\">' +
+                            '<input type = \"hidden\" value= \"' + obj[i].Name + '\" name = \"Name\">' +
+                            '<input type =\"submit\" value= \"View detail >>\">' +
+                            '</form></li>';
+                        if (i >=3){
+                            code = code + '<hr><form action="/search-result" method="post">'+
+                                    '<input type = \"hidden\" value= \"' + content + '\" name = \"IMO\">' +
+                                    '<input type =\"submit\" value= \"Show all results\">' +
+                                    '</form>';
                         }
-                        document.getElementById('result').innerHTML = code;
-
                     }
-                };
-                xhttp.open('POST', 'quicksearch', true);
-                xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                xhttp.send("imo="+str);
-            }
-        }
-
+                    $('#result').html(code);
+                })
+            })
+             $('#check').click(function () {
+                 $('#search').val('');
+             })
+         });
