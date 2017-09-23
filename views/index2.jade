@@ -1,0 +1,51 @@
+doctype html
+html(lang='en')
+    head
+        title Search Database
+        link(rel='stylesheet' href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css')
+        script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")
+        style body {padding-top: 50px;}
+    body
+        div.container
+            div.jumbotron
+                h2 Quick Search
+                div.panel.panel-default
+                    div.panel-body
+                        form(action='')
+                            p    Search by IMO
+                                text    &nbsp;&nbsp;&nbsp;
+                                input#search( type = 'text')
+                                text    &nbsp;
+                                input#check(type = 'checkbox' value = 'true')
+                                text    &nbsp;Exact Search
+                        h4#result
+    script.
+         $(document).ready(function () {
+            $('#search').keyup(function abc() {
+                let content = $('#search').val();
+                var checked = false;
+                if($('#check').is(':checked')) checked = true;
+                $.post('quicksearch', 'imo='+content +'&checked='+checked , function (data, status) {
+                    let code = '';
+                    let obj = data;
+                    for (let i = 0; i < obj.length; i++) {
+                        code = code + '<hr><li>Ship IMO: ' + obj[i].IMO + ' - Ship Name: ' + obj[i].Name +
+                            '<form action=\"/ship/view-detail\" method=\"post\">' +
+                            '<input type = \"hidden\" value= \"' + obj[i].IMO + '\" name = \"IMO\">' +
+                            '<input type = \"hidden\" value= \"' + obj[i].Name + '\" name = \"Name\">' +
+                            '<input type =\"submit\" value= \"View detail >>\">' +
+                            '</form></li>';
+                        if (i >=3){
+                            code = code + '<hr><form action="/search-result" method="post">'+
+                                    '<input type = \"hidden\" value= \"' + content + '\" name = \"IMO\">' +
+                                    '<input type =\"submit\" value= \"Show all results\">' +
+                                    '</form>';
+                        }
+                    }
+                    $('#result').html(code);
+                })
+            })
+             $('#check').click(function () {
+                 $('#search').val('');
+             })
+         });

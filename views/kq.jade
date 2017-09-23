@@ -1,0 +1,22 @@
+doctype html
+html(lang='en')
+	head
+		title Search Database
+		link(rel='stylesheet' href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css')
+		style body { padding-top:50px; }
+	body
+		div.container
+			div.jumbotron
+				h2
+					a(href='//127.0.0.1:8080')
+						p	Homepage
+					p	ship_imo
+				each result in results
+					div.panel.panel-default
+						div.panel-body
+								p IMO: #{result.IMO}
+								p Name: #{result.Name}
+								form(action='/ship/view-detail' method='post')
+									input(type = 'hidden' value= "#{result.IMO}" name = 'IMO')
+									input(type = 'hidden' value= "#{result.Name}" name = 'Name')
+									input(type ='submit' value= 'View detail >>')

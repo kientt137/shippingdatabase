@@ -1,0 +1,39 @@
+doctype html
+html(lang='en')
+	head
+		title Ship Detail
+		link(rel='stylesheet' href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css')
+		style body { padding-top:50px; }
+	body
+		div.container
+			div.jumbotron
+				h3
+					a(href='//127.0.0.1:8080')
+						|	Homepage
+					|	>> Ship detail
+				div.panel.panel-default
+					div.panel-body
+						p IMO: #{result.IMO}
+						p Name: #{result.Name}
+						//p Former Names: #{result.'Former Names'}
+						p Type: #{result.Type}
+						p Year: #{result.Year}
+						p Flag: #{result.Flag}
+						p GRT: #{result.GRT}
+						p DWT: #{result.DWT}
+						p LOA: #{result.LOA}
+						p BM: #{result.BM}
+						p Speed: #{result.Speed}
+						p TEU: #{result.TEU}
+						p PAX: #{result.PAX}
+						p MMSI: #{result.MMSI}
+						//p Official Number: #{result.'Official Number'}
+						p Callsign: #{result.Callsign}
+						p Owners: #{result.Owners}
+						//P Management Company: #{result.'Management Company'}
+						p Builder: #{result.Buider}
+						//p Yard#: #{result.'Yard#'}
+						//p Sales & Transfers: #{result.'Sales & Transfers'}
+						p Accidents: #{result.Accidents}
+						//p Broken Up: #{result.'Broken Up'}
+						//p Date Broken Up: #{result.'Date Broken Up'}
