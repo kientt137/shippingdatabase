@@ -8,15 +8,16 @@ html(lang='en')
 		div.container
 			div.jumbotron
 				h2
-					a(href='//127.0.0.1:8080')
+					a(href='//127.0.0.1:3000')
 						p	Homepage
-					p	ship_imo
+					p	Search Database (#{results.length} results)
+					p
 				each result in results
 					div.panel.panel-default
 						div.panel-body
-								p IMO: #{result.IMO}
-								p Name: #{result.Name}
-								form(action='/ship/view-detail' method='post')
-									input(type = 'hidden' value= "#{result.IMO}" name = 'IMO')
-									input(type = 'hidden' value= "#{result.Name}" name = 'Name')
-									input(type ='submit' value= 'View detail >>')
+							p IMO: #{result.IMO}
+							p Name: #{result.Name}
+							form(action='/ship/view-detail' method='post')
+								input(type = 'hidden' value= "#{result.IMO}" name = 'IMO')
+								input(type = 'hidden' value= "#{result.Name}" name = 'Name')
+								input(type = 'submit' value= 'View detail >>')

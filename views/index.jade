@@ -27,12 +27,11 @@ html(lang='en')
                 if($('#check').is(':checked')) checked = true;
                 $.post('quicksearch', 'imo='+content +'&checked='+checked , function (data, status) {
                     let code = '';
-                    let obj = data;
-                    for (let i = 0; i < obj.length; i++) {
-                        code = code + '<hr><li>Ship IMO: ' + obj[i].IMO + ' - Ship Name: ' + obj[i].Name +
+                    for (let i = 0; i < data.length; i++) {
+                        code = code + '<hr><li>Ship IMO: ' + data[i].IMO + ' - Ship Name: ' + data[i].Name +
                             '<form action=\"/ship/view-detail\" method=\"post\">' +
-                            '<input type = \"hidden\" value= \"' + obj[i].IMO + '\" name = \"IMO\">' +
-                            '<input type = \"hidden\" value= \"' + obj[i].Name + '\" name = \"Name\">' +
+                            '<input type = \"hidden\" value= \"' + data[i].IMO + '\" name = \"IMO\">' +
+                            '<input type = \"hidden\" value= \"' + data[i].Name + '\" name = \"Name\">' +
                             '<input type =\"submit\" value= \"View detail >>\">' +
                             '</form></li>';
                         if (i >=3){
