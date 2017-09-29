@@ -17,7 +17,7 @@ html(lang='en')
 						div.panel-body
 							p IMO: #{result.IMO}
 							p Name: #{result.Name}
-							form(action='/ship/view-detail' method='post')
+							form(action='/ship/view-detail' method='get')
 								input(type = 'hidden' value= "#{result.IMO}" name = 'IMO')
 								input(type = 'hidden' value= "#{result.Name}" name = 'Name')
 								input(type = 'submit' value= 'View detail >>')

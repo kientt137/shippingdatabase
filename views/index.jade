@@ -29,13 +29,13 @@ html(lang='en')
                     let code = '';
                     for (let i = 0; i < data.length; i++) {
                         code = code + '<hr><li>Ship IMO: ' + data[i].IMO + ' - Ship Name: ' + data[i].Name +
-                            '<form action=\"/ship/view-detail\" method=\"post\">' +
+                            '<form action=\"/ship/view-detail\" method=\"get\">' +
                             '<input type = \"hidden\" value= \"' + data[i].IMO + '\" name = \"IMO\">' +
                             '<input type = \"hidden\" value= \"' + data[i].Name + '\" name = \"Name\">' +
                             '<input type =\"submit\" value= \"View detail >>\">' +
                             '</form></li>';
                         if (i >=3){
-                            code = code + '<hr><form action="/search-result" method="post">'+
+                            code = code + '<hr><form action="/search-result" method="get">'+
                                     '<input type = \"hidden\" value= \"' + content + '\" name = \"IMO\">' +
                                     '<input type =\"submit\" value= \"Show all results\">' +
                                     '</form>';
