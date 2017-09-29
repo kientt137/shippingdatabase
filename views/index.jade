@@ -20,12 +20,12 @@ html(lang='en')
                                 text    &nbsp;Exact Search
                         h4#result
     script.
-         $(document).ready(function () {
-            $('#search').keyup(function abc() {
+         $(document).ready(() => {
+            $('#search').keyup(abc = () => {
                 let content = $('#search').val();
                 var checked = false;
                 if($('#check').is(':checked')) checked = true;
-                $.post('quicksearch', 'imo='+content +'&checked='+checked , function (data, status) {
+                $.post('quicksearch', 'imo='+content +'&checked='+checked ,(data, status) => {
                     let code = '';
                     for (let i = 0; i < data.length; i++) {
                         code = code + '<hr><li>Ship IMO: ' + data[i].IMO + ' - Ship Name: ' + data[i].Name +
@@ -44,7 +44,7 @@ html(lang='en')
                     $('#result').html(code);
                 })
             })
-             $('#check').click(function () {
+             $('#check').click(() => {
                  $('#search').val('');
              })
          });
